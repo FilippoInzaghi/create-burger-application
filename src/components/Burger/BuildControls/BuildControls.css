@@ -9,6 +9,11 @@
   padding: 10px 0;
 }
 
+.BuildControls a{
+  text-align: center;
+  color: white
+}
+
 
 .OrderButton {
   background-color: #DAD735;

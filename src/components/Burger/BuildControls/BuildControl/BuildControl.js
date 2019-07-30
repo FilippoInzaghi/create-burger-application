@@ -10,8 +10,8 @@ const buildControl = props => {
   return (
     <div className={classes.BuildControl}>
       <div className={classes.Label}>{props.label}</div>
-      <button className={classes.Less} onClick={() => props.ingredientAddedOrRemoved(props.type, false)} disabled={!props.ingredients[props.type]}>Less</button>
-      <button className={classes.More} onClick={() => props.ingredientAddedOrRemoved(props.type, true)} disabled={props.ingredients[props.type] === 3 ? true : false}>More</button>
+      <button className={classes.Less} onClick={props.removed} disabled={!props.ingredients[props.type]}>Less</button>
+      <button className={classes.More} onClick={props.added} disabled={props.ingredients[props.type] === 3 ? true : false}>More</button>
     </div>
   );
 };
