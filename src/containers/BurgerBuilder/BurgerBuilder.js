@@ -39,9 +39,14 @@ class BurgerBuilder extends Component {
   // };
 
   showModal = () => {
+    if (this.props.authenticated){
     this.setState(prevState => ({
       showOrderSummary: true,
     }));
+  } else {
+    this.props.onSetAuthRedirectPath('/checkout');
+    this.props.history.push('/auth')
+  }
   };
 
   modalClosedClicked = () => {
@@ -114,7 +119,7 @@ const mapStateToProps = state => {
     ings: state.burger.ingredients,
     totalPrice: state.burger.totalPrice,
     error: state.burger.error,
-    authenticated: state.auth.authenticated
+    authenticated: state.auth.token !== null
   };
 };
 
@@ -123,7 +128,8 @@ const mapDispatchToProps = dispatch => {
     onIngredientAdded: ingName => dispatch(actions.addIngredient(ingName)),
     onIngredientRemoved: ingName => dispatch(actions.removeIngredient(ingName)),
     onInitIngredients: () => dispatch(actions.initIngredients()),
-    onInitPurchase: () => dispatch(actions.purchaseInit())
+    onInitPurchase: () => dispatch(actions.purchaseInit()),
+    onSetAuthRedirectPath: path => dispatch(actions.setAuthRedirectPath(path))
   };
 };
 

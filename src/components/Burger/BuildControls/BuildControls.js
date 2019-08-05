@@ -14,18 +14,21 @@ const controls = [
 
 const buildControls = props => {
   let buildControlsPanel = <>
-       <p>Current Price: <strong>{props.price.toFixed(2)}$</strong></p>
-      {controls.map((ctrl, index) => (
-        <BuildControl key={ctrl.label + index} label={ctrl.label} added={() => props.ingredientAdded(ctrl.type)} removed={() => props.ingredientRemoved(ctrl.type)}
+    <p>Current Price: <strong>{props.price.toFixed(2)}$</strong></p>
+    {controls.map((ctrl, index) => (
+      <BuildControl key={ctrl.label + index} label={ctrl.label} added={() => props.ingredientAdded(ctrl.type)} removed={() => props.ingredientRemoved(ctrl.type)}
         type={ctrl.type}
         ingredients={props.ingredients} />
-      ))}
-      <button className={classes.OrderButton} disabled={props.purchasable} onClick={props.showModal}>ORDER NOW</button>
+    ))}
+    <button
+      className={classes.OrderButton}
+      disabled={props.purchasable}
+      onClick={props.showModal}>{props.authenticated ? 'ORDER NOW' : 'SIGN UP TO ORDER'}</button>
   </>
-  if (props.authenticated === null){
+  if (props.authenticated === null) {
     buildControlsPanel = <>
-    <p>You have to log in to add ingredients!</p>
-    <NavigationItem className={classes2.NavigationItem} link='/auth'>Log in</NavigationItem>
+      <p>You have to log in to add ingredients!</p>
+      <NavigationItem className={classes2.NavigationItem} link='/auth'>Log in</NavigationItem>
     </>
   }
 

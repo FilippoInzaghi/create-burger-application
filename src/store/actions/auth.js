@@ -7,7 +7,7 @@ export const authStart = () => {
     };
 };
 
-export const authSuccess = (token, userId) => {
+export const authSuccess = (token, userId) => {    
     return {
         type: actionTypes.AUTH_SUCCESS,
         idToken: token,
@@ -51,6 +51,9 @@ export const auth = (email, password, isSignup) => {
         axios.post(url, authData)
         .then(res => {
             console.log(res);
+            const expirationDate = new Date(new Date().getTime() + res.data.expiresIn * 1000);
+            localStorage.setItem('token', res.data.idToken);
+            localStorage.setItem('expirationDate', expirationDate);
             dispatch(authSuccess(res.data.idToken, res.data.localId));
             dispatch(checkAuthTimeout(res.data.expiresIn))
         })
@@ -59,5 +62,12 @@ export const auth = (email, password, isSignup) => {
             dispatch(authFail(err.response.data.error))
         })
         // console.log(email, password, isSignup)
+    }
+};
+
+export const setAuthRedirectPath = path => {
+    return {
+        type: actionTypes.SET_AUTH_REDIRECT_PATH,
+        path: path
     }
 }
