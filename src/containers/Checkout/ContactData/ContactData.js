@@ -163,7 +163,6 @@ class ContactData extends Component {
       );
     } else updatedFormElement.valid = true;
     updatedOrderForm[inputIdentifier] = updatedFormElement;
-    console.log(updatedFormElement);
 
     let formIsValid = true;
     for (let inputIdentifier in updatedOrderForm) {
@@ -187,7 +186,6 @@ class ContactData extends Component {
   orderHandler = event => {
     event.preventDefault();
     const dateOfPurchase = new Date();
-    console.log(this.props, "Przesyłanie rozpoczęte");
     const formData = {};
     for (let formElementIdentifier in this.state.orderForm) {
       formData[formElementIdentifier] = this.state.orderForm[
@@ -196,6 +194,7 @@ class ContactData extends Component {
     }
 
     const orderObject = {
+      userId: this.props.userId,
       ingredients: this.props.ings,
       price: this.props.totalPrice,
       orderData: formData,
@@ -204,7 +203,6 @@ class ContactData extends Component {
     this.props.onOrderBurger(orderObject, this.props.token)
   };
   render() {
-    console.log(this.props, this.state.orderForm);
     let formShow = (
       <>
         <h4>Enter your contact data</h4>
@@ -246,7 +244,8 @@ const mapStateToProps = state => {
     ings: state.burger.ingredients,
     totalPrice: state.burger.totalPrice,
     loading: state.order.loading,
-    token: state.auth.token
+    token: state.auth.token,
+    userId: state.auth.userId
   }
 }
 

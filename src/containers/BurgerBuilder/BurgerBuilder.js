@@ -10,7 +10,7 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 import axios from '../..//axios-orders';
 
-class BurgerBuilder extends Component {
+export class BurgerBuilder extends Component {
   state = {
     showOrderSummary: false,
   };
@@ -53,7 +53,6 @@ class BurgerBuilder extends Component {
     this.setState(prevState => ({
       showOrderSummary: false,
     }));
-    console.log("Klik");
   };
 
   orderSummaryBtnClicked = () => {
