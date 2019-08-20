@@ -13,7 +13,7 @@ import createSagaMiddleware from 'redux-saga';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import {logoutSaga} from './store/sagas/auth';
+import {watchAuth} from './store/sagas/index';
 
 const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null|| compose;
 
@@ -30,7 +30,7 @@ const store = createStore(rootReducer, composeEnhancers(
     applyMiddleware(thunk, sagaMiddleware)
 ));
 
-sagaMiddleware.run(logoutSaga)
+sagaMiddleware.run(watchAuth)
 
 ReactDOM.render(<Provider store={store}><Router><App/></Router></Provider>, document.getElementById('root'));
 
